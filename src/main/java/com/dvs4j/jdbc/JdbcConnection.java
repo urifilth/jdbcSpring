@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.h2.tools.RunScript;
@@ -32,8 +33,28 @@ public class JdbcConnection {
 			statement.setString(1, "Juan");
 			statement.setString(2, "Lopez");
 			statement.setString(3, "El juan");
-			rows = statement.executeUpdate();
+			boolean execute = statement.execute();
+			System.out.println("Is insertion: "+(execute==false));
+			rows = statement.getUpdateCount();
+//			rows = statement.executeUpdate();
 			System.out.println("Rows impacted: "+rows);
+			statement.close();
+			
+			PreparedStatement statementQuery = connection.prepareStatement("select * from person");
+			boolean execute2 = statementQuery.execute();
+			System.out.println("Is resultSet: "+(execute));
+			ResultSet rs = statementQuery.getResultSet();
+//			ResultSet rs = statementQuery.executeQuery();
+			while(rs.next()) {
+				System.out.printf("\nId[%d] \tName [%s] \tLastName [%s] \tNickname [%s]", rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4));
+			}
+			System.out.println();
+			statementQuery.close();
+			
+			
+			PreparedStatement statementDelete = connection.prepareStatement("delete from person");
+			int rowsDeleted = statementDelete.executeUpdate();
+			System.out.println("Rows deleted: "+rowsDeleted);
 			
 			
 			System.out.println("Closing...");
