@@ -25,11 +25,13 @@ public class preparedStatementBatchExample {
 		
 		try {
 			Faker faker = new Faker();
+			connection.setAutoCommit(false);
 			for(int i=0; i<100;i++) {
 				statement.setString(1, faker.name().firstName());
 				statement.setString(2, faker.name().lastName());
 				statement.setString(3, faker.dragonBall().character());
 				statement.addBatch();
+				connection.commit();
 			}
 			int [] executeBatch = statement.executeBatch();
 			for (int rowsImpacted : executeBatch) {
