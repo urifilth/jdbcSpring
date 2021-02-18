@@ -57,29 +57,29 @@ public class ExerciseConnections {
 	 * ---Con C3P0---
 	 * Para una conexión 302 ms
 	 * Para 10 conexiones 223 ms
-	 * 
+	 * Para 30 conexiones 231 ms
 	 * Para 100 conexiones 229 ms
 	 * Para 200 conexiones 237 ms
 	 */
 	
 	public static void main(String[] args) throws SQLException {
 		
-		ComboPooledDataSource connectionPool = new ComboPooledDataSource();
-		connectionPool.setJdbcUrl("jdbc:h2:~/test");
-		connectionPool.setUser("");
-		connectionPool.setPassword("");
+//		ComboPooledDataSource connectionPool = new ComboPooledDataSource();
+//		connectionPool.setJdbcUrl("jdbc:h2:~/test");
+//		connectionPool.setUser("");
+//		connectionPool.setPassword("");
 		
 //Connection dbcp2		BasicDataSource connectionPool = new BasicDataSource();
 //Connection dbcp2		connectionPool.setUrl("jdbc:h2:~/test");
 //Connection dbcp2		connectionPool.setUsername("");
 //Connection dbcp2		connectionPool.setPassword("");
 //		
-//Connection hikari		HikariConfig config = new HikariConfig();
-//Connection hikari		config.setJdbcUrl("jdbc:h2:~/test");
-//Connection hikari		config.setUsername("");
-//Connection hikari		config.setPassword("");
-//Connection hikari		
-//Connection hikari		HikariDataSource connectionPool = new HikariDataSource(config);
+		HikariConfig config = new HikariConfig();
+		config.setJdbcUrl("jdbc:h2:~/test");
+		config.setUsername("");
+		config.setPassword("");
+
+		HikariDataSource connectionPool = new HikariDataSource(config);
 		
 //ConectionPool		JdbcConnectionPool connectionPool = JdbcConnectionPool.create("jdbc:h2:~/test","","");
 		Long startTime = System.currentTimeMillis();
